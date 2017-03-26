@@ -23,7 +23,6 @@ export default class PageOne extends Component {
       //Dataの設定
       dataSource: ds.cloneWithRows([])
       // dataSource: ds.cloneWithRows(TEST_ENTRY_DATA.items)
-
     };
   }
 
@@ -33,7 +32,7 @@ export default class PageOne extends Component {
     console.log(entry);
 
     return (
-      <TouchableHighlight onPress={Actions.pageTwo}>
+      <TouchableHighlight onPress={() => (Actions.pageTwo({book:entry}))}>
         <View>
           <View style={styles.listItem}>
 
@@ -130,7 +129,8 @@ const fetchData = (text,app) => {
     fetch("https://www.googleapis.com/books/v1/volumes?q=intitle:" + text)
     .then((response) => response.json())
     .then((responseData) => {
-      console.log(responseData.items);
+      console.log(responseData.items.length);
+      console.log(responseData.totalItems);
       app.setState({
         dataSource: app.state.dataSource.cloneWithRows(responseData.items)
       });
