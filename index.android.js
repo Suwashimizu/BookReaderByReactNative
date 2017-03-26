@@ -15,6 +15,12 @@ import {
   View
 } from 'react-native';
 
+//Routing
+import {Scene, Router} from 'react-native-router-flux';
+
+import PageOne from './PageOne/PageOne';
+import PageTwo from './PageTwo/PageTwo';
+
 export default class BookSearch extends Component {
 
   constructor(props) {
@@ -32,7 +38,7 @@ export default class BookSearch extends Component {
   //ListItemのRender:function()はSyntacs変わった？
   renderEntry(entry){
     return (
-      <TouchableHighlight>
+      <TouchableHighlight onPress={()=>{console.log(entry)}}>
         <View>
           <View style={styles.container}>
             <Image
@@ -55,7 +61,7 @@ export default class BookSearch extends Component {
   DataSourceの指定とRender
   dataSource={this.state.dataSource}
   renderRow={this.renderEntry}/>
-  */
+  
   render() {
     return (
       <ListView
@@ -63,7 +69,30 @@ export default class BookSearch extends Component {
         renderRow={this.renderEntry}/>
     );
   }
+  */
+
+  render() {
+    return <Router>
+      <Scene key="root">
+        <Scene key="top" initial={true} component={PageOne} title="Top"/>
+        <Scene key="pageTwo" component={PageTwo} title="Search"/>
+      </Scene>
+    </Router>
+  }
 }
+
+class LoginComponent extends Component {
+  render() {
+    <View style={styles.container}>
+      <Text style={styles.title}
+        onPress={onClick}>
+        Login
+      </Text>
+    </View>
+  }
+}
+
+const loginComponent = new LoginComponent();
 
 const onClick = () =>  {
   console.log('onClick');
