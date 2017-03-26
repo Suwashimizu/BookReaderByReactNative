@@ -21,6 +21,8 @@ export default class PageOne extends Component {
     this.state = {
       //Dataの設定
       dataSource: ds.cloneWithRows([])
+      // dataSource: ds.cloneWithRows(TEST_ENTRY_DATA.items)
+
     };
   }
 
@@ -32,13 +34,13 @@ export default class PageOne extends Component {
     return (
       <TouchableHighlight onPress={()=>{console.log(entry)}}>
         <View>
-          <View style={styles.container}>
+          <View style={styles.listItem}>
 
             {(() => {
               return entry.volumeInfo.imageLinks ? 
               <Image
                 source={{uri: entry.volumeInfo.imageLinks.smallThumbnail}}
-                style={styles.thumbnail}/> : <Text>ImageNothing</Text>;
+                style={styles.thumbnail}/> : <Text style={styles.imageNotFound}>ImageNothing</Text>;
             })()}
 
             <View style={styles.rightContainer}>
@@ -68,13 +70,13 @@ export default class PageOne extends Component {
             }
           }
         />
-        <Text style={{padding: 10, fontSize: 42}}>
-          
-        </Text>
 
-        <ListView
-          dataSource={this.state.dataSource}
-        renderRow={this.renderEntry}/>
+        {(() => {
+              return this.state.text ? 
+              <ListView
+                dataSource={this.state.dataSource}
+                renderRow={this.renderEntry}/> : null;
+        })()}
       </View>
     )
   }
@@ -148,6 +150,13 @@ const styles = StyleSheet.create({
     marginTop:64,
     margin:16
   },
+  listItem: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
   rightContainer: {
         flex: 1
   },
@@ -163,6 +172,13 @@ const styles = StyleSheet.create({
   separator: {
        height: 1,
        backgroundColor: '#DDDDDD'
+  },
+  imageNotFound: {
+        width: 100,
+        height: 100,
+        marginRight: 10,
+        textAlign: 'center',
+        textAlignVertical: 'center',
   },
   listView: {
          backgroundColor: '#F5FCFF'
