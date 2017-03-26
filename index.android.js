@@ -10,6 +10,7 @@ import {
   StyleSheet,
   Text,
   Image,
+  ListView,
   View
 } from 'react-native';
 
@@ -18,19 +19,35 @@ export default class BookSearch extends Component {
   constructor(props) {
     super(props);
 
-    console.log('FUFUFU');
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.state = {
+      dataSource: ds.cloneWithRows([entry, entry,entry,entry,entry,entry,entry,entry,entry,entry]),
+    };
+  }
+
+  renderEntry(entry){
+    return (
+      <View>
+        <View style={styles.container}>
+          <Image
+              source={{uri: entry.imageLinks.smallThumbnail}}
+              style={styles.thumbnail}/>
+          <Text style={styles.title}
+            onPress={onClick}>
+            {entry.title}
+          </Text>
+        </View>
+        <View style={styles.separator}/>
+      </View>
+    );
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Image
-            source={{uri: entry.imageLinks.smallThumbnail}}
-            style={styles.thumbnail}/>
-        <Text style={styles.title}
-          onPress={onClick}>
-          {entry.title}
-        </Text>
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={this.renderEntry}/>
       </View>
     );
   }
@@ -67,6 +84,13 @@ const styles = StyleSheet.create({
         width: 100,
         height: 100,
         marginRight: 10
+  },
+  separator: {
+       height: 1,
+       backgroundColor: '#DDDDDD'
+  },
+  listView: {
+         backgroundColor: '#F5FCFF'
   },
 });
 
