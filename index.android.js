@@ -21,10 +21,12 @@ export default class BookSearch extends Component {
 
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
+      //Dataの設定
       dataSource: ds.cloneWithRows([entry, entry,entry,entry,entry,entry,entry,entry,entry,entry]),
     };
   }
 
+  //ListItemのRender:function()はSyntacs変わった？
   renderEntry(entry){
     return (
       <View>
@@ -42,6 +44,11 @@ export default class BookSearch extends Component {
     );
   }
 
+  /*
+  DataSourceの指定とRender
+  dataSource={this.state.dataSource}
+  renderRow={this.renderEntry}/>
+  */
   render() {
     return (
       <View style={styles.container}>
@@ -94,6 +101,7 @@ const styles = StyleSheet.create({
   },
 });
 
+//APIから取得するjsonのstab
 const TEST_ENTRY_DATA= {
 
   kind: "books#volumes",
