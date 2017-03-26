@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
+import ActionTypes from '../actions/ActionTypes';
 
 export default class PageOne extends Component {
 
@@ -32,7 +33,7 @@ export default class PageOne extends Component {
     console.log(entry);
 
     return (
-      <TouchableHighlight onPress={()=>{console.log(entry)}}>
+      <TouchableHighlight onPress={Actions.pageTwo}>
         <View>
           <View style={styles.listItem}>
 
@@ -44,8 +45,7 @@ export default class PageOne extends Component {
             })()}
 
             <View style={styles.rightContainer}>
-              <Text style={styles.title}
-                onPress={onClick}>
+              <Text style={styles.title} >
                 {entry.volumeInfo.title}
               </Text>
             </View>
@@ -80,10 +80,6 @@ export default class PageOne extends Component {
       </View>
     )
   }
-}
-
-const onClick = () =>  {
-  console.log('onClick');
 }
 
 const TEST_ENTRY_DATA= {
