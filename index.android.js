@@ -11,6 +11,7 @@ import {
   Text,
   Image,
   ListView,
+  TouchableHighlight,
   View
 } from 'react-native';
 
@@ -22,7 +23,7 @@ export default class BookSearch extends Component {
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       //Dataの設定
-      dataSource: ds.cloneWithRows(entry),
+      dataSource: ds.cloneWithRows([]),
     };
 
     fetchData(this)
@@ -31,18 +32,22 @@ export default class BookSearch extends Component {
   //ListItemのRender:function()はSyntacs変わった？
   renderEntry(entry){
     return (
-      <View>
-        <View style={styles.container}>
-          <Image
-              source={{uri: entry.volumeInfo.imageLinks.smallThumbnail}}
-              style={styles.thumbnail}/>
-          <Text style={styles.title}
-            onPress={onClick}>
-            {entry.volumeInfo.title}
-          </Text>
+      <TouchableHighlight>
+        <View>
+          <View style={styles.container}>
+            <Image
+                source={{uri: entry.volumeInfo.imageLinks.smallThumbnail}}
+                style={styles.thumbnail}/>
+            <View style={styles.rightContainer}>
+              <Text style={styles.title}
+                onPress={onClick}>
+                {entry.volumeInfo.title}
+              </Text>
+            </View>
+          </View>
+          <View style={styles.separator}/>
         </View>
-        <View style={styles.separator}/>
-      </View>
+      </TouchableHighlight>
     );
   }
 
@@ -53,17 +58,15 @@ export default class BookSearch extends Component {
   */
   render() {
     return (
-      <View style={styles.container}>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={this.renderEntry}/>
-      </View>
+      <ListView
+        dataSource={this.state.dataSource}
+        renderRow={this.renderEntry}/>
     );
   }
 }
 
 const onClick = () =>  {
-  console.log('FUFUFU');
+  console.log('onClick');
 }
 
 const styles = StyleSheet.create({
@@ -73,21 +76,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
-    padding: 10
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  rightContainer: {
+        flex: 1
   },
   title: {
-        fontSize: 20,
-        marginBottom: 8
+      fontSize: 20,
+      marginBottom: 8
   },
   thumbnail: {
         width: 100,
