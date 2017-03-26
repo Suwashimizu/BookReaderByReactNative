@@ -25,7 +25,7 @@ export default class BookSearch extends Component {
       <View style={styles.container}>
         <Text style={styles.welcome}
           onPress={onClick}>
-          Welcome to React Native!
+          {entry.title}
         </Text>
         <Text style={styles.instructions}>
           To get started, edit index.android.js
@@ -61,5 +61,31 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
+
+const TEST_ENTRY_DATA= {
+
+  kind: "books#volumes",
+  totalItems: 4,
+  items: [
+  {
+   kind: "books#volume",
+   id: "n0WU-RX8-yoC",
+   etag: "i1EbgqzMFpU",
+   selfLink: "https://www.googleapis.com/books/v1/volumes/n0WU-RX8-yoC",
+   volumeInfo: {
+    title: "スレイヤーズ　水竜王の騎士(6)",
+    authors: [
+    "トミイ　大塚"
+    ],
+    imageLinks: {
+     smallThumbnail: "http://books.google.com/books/content?id=n0WU-RX8-yoC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     thumbnail: "http://books.google.com/books/content?id=n0WU-RX8-yoC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    }
+   }
+  }
+ ]
+}
+
+var entry = TEST_ENTRY_DATA.items[0].volumeInfo;
 
 AppRegistry.registerComponent('BookSearch', () => BookSearch);
