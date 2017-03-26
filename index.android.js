@@ -22,8 +22,10 @@ export default class BookSearch extends Component {
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       //Dataの設定
-      dataSource: ds.cloneWithRows([entry, entry,entry,entry,entry,entry,entry,entry,entry,entry]),
+      dataSource: ds.cloneWithRows(entry),
     };
+
+    fetchData(this)
   }
 
   //ListItemのRender:function()はSyntacs変わった？
@@ -32,11 +34,11 @@ export default class BookSearch extends Component {
       <View>
         <View style={styles.container}>
           <Image
-              source={{uri: entry.imageLinks.smallThumbnail}}
+              source={{uri: entry.volumeInfo.imageLinks.smallThumbnail}}
               style={styles.thumbnail}/>
           <Text style={styles.title}
             onPress={onClick}>
-            {entry.title}
+            {entry.volumeInfo.title}
           </Text>
         </View>
         <View style={styles.separator}/>
@@ -122,10 +124,41 @@ const TEST_ENTRY_DATA= {
      thumbnail: "http://books.google.com/books/content?id=n0WU-RX8-yoC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
     }
    }
+  },
+  {
+   kind: "books#volume",
+   id: "n0WU-RX8-yoC",
+   etag: "i1EbgqzMFpU",
+   selfLink: "https://www.googleapis.com/books/v1/volumes/n0WU-RX8-yoC",
+   volumeInfo: {
+    title: "スレイヤーズ　水竜王の騎士(1)",
+    authors: [
+    "トミイ　大塚"
+    ],
+    imageLinks: {
+     smallThumbnail: "http://books.google.com/books/content?id=n0WU-RX8-yoC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     thumbnail: "http://books.google.com/books/content?id=n0WU-RX8-yoC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    }
+   }
   }
  ]
 }
 
-var entry = TEST_ENTRY_DATA.items[0].volumeInfo;
+var entry = TEST_ENTRY_DATA.items
+
+const GOOGLE_BOOK_ENTRY_URL = "https://www.googleapis.com/books/v1/volumes?q=intitle:%E3%82%B9%E3%83%AC%E3%82%A4%E3%83%A4%E3%83%BC%E3%82%BA+inauthor:%E5%A4%A7%E5%A1%9A";
+
+const fetchData = (app) => {
+  console.log('APIcall')
+  fetch(GOOGLE_BOOK_ENTRY_URL)
+    .then((response) => response.json())
+    .then((responseData) => {
+      console.log(responseData.items);
+      app.setState({
+        dataSource: app.state.dataSource.cloneWithRows(responseData.items)
+      });
+    })
+    .done();
+}
 
 AppRegistry.registerComponent('BookSearch', () => BookSearch);
