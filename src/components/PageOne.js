@@ -21,6 +21,9 @@ export default class PageOne extends Component {
         <Text style={{padding: 10, fontSize: 42}}>
           {this.state.text}
         </Text>
+         <Text style={{padding: 10, fontSize: 42}}>
+          
+        </Text>
       </View>
     )
   }
