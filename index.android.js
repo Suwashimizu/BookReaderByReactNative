@@ -9,6 +9,7 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
+  Image,
   View
 } from 'react-native';
 
@@ -23,16 +24,12 @@ export default class BookSearch extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}
+        <Image
+            source={{uri: entry.imageLinks.smallThumbnail}}
+            style={styles.thumbnail}/>
+        <Text style={styles.title}
           onPress={onClick}>
           {entry.title}
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
         </Text>
       </View>
     );
@@ -46,9 +43,11 @@ const onClick = () =>  {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+    padding: 10
   },
   welcome: {
     fontSize: 20,
@@ -59,6 +58,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+  },
+  title: {
+        fontSize: 20,
+        marginBottom: 8
+  },
+  thumbnail: {
+        width: 100,
+        height: 100,
+        marginRight: 10
   },
 });
 
