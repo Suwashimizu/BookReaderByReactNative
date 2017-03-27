@@ -30,8 +30,6 @@ export default class PageOne extends Component {
   //ListItemのRender
   renderEntry(entry){
 
-    console.log(entry);
-
     return (
       <TouchableNativeFeedback onPress={() => (Actions.pageTwo({book:entry}))}>
         <View>
