@@ -6,7 +6,7 @@ import {
   TextInput,
   StyleSheet,
   ListView,
-  TouchableHighlight,
+  TouchableNativeFeedback,
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
@@ -32,7 +32,7 @@ export default class PageOne extends Component {
     console.log(entry);
 
     return (
-      <TouchableHighlight onPress={() => (Actions.pageTwo({book:entry}))}>
+      <TouchableNativeFeedback onPress={() => (Actions.pageTwo({book:entry}))}>
         <View>
           <View style={styles.listItem}>
 
@@ -49,7 +49,7 @@ export default class PageOne extends Component {
           </View>
           <View style={styles.separator}/>
         </View>
-      </TouchableHighlight>
+      </TouchableNativeFeedback>
     );
   }
 
@@ -140,7 +140,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#F5FCFF',
     marginTop:64,
     margin:16
   },
@@ -149,7 +148,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
   rightContainer: {
         flex: 1
@@ -175,6 +173,6 @@ const styles = StyleSheet.create({
         textAlignVertical: 'center',
   },
   listView: {
-        backgroundColor: '#F5FCFF'
+    
   },
 });
