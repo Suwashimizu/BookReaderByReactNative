@@ -6,24 +6,33 @@
 
 import React, { Component } from 'react';
 import {
-  AppRegistry
+  AppRegistry,
 } from 'react-native';
 
 //Routing
-import {Scene, Router} from 'react-native-router-flux';
+import {Scene, Router,Modal,Reducer} from 'react-native-router-flux';
 
 import PageOne from '../components/PageOne';
 import PageTwo from '../components/PageTwo';
 import ActionTypes from '../actions/ActionTypes';
 
+const reducerCreate = params=>{
+    const defaultReducer = Reducer(params);
+    return (state, action)=>{
+        // console.log("ACTION:", action);
+        return defaultReducer(state, action);
+    }
+};
+
 export default class extends Component {
 
   render() {
-    return <Router>
-      <Scene key="root">
+    return (
+    <Router createReducer={reducerCreate} sceneStyle={{backgroundColor:'#F7F7F7'}}>
+      <Scene key="modal" component={Modal}>
         <Scene key="top" initial={true} component={PageOne} title="Top"/>
-        <Scene key="pageTwo" component={PageTwo} title="Search"/>
       </Scene>
-    </Router>
+      <Scene key="pageTwo" component={PageTwo} hideNavBar={true} direction="vertical" schema="modal" title="Search"/>
+    </Router>)
   }
 }
