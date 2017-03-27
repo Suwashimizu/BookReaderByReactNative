@@ -36,12 +36,10 @@ export default class PageOne extends Component {
         <View>
           <View style={styles.listItem}>
 
-            {(() => {
-              return entry.volumeInfo.imageLinks ? 
+            { entry.volumeInfo.imageLinks ? 
               <Image
-                source={{uri: entry.volumeInfo.imageLinks.smallThumbnail}}
-                style={styles.thumbnail}/> : <Text style={styles.imageNotFound}>ImageNothing</Text>;
-            })()}
+                  source={{uri: entry.volumeInfo.imageLinks.smallThumbnail}}
+                  style={styles.thumbnail}/> : <Text style={styles.imageNotFound}>ImageNothing</Text>}
 
             <View style={styles.rightContainer}>
               <Text style={styles.title} >
@@ -177,6 +175,6 @@ const styles = StyleSheet.create({
         textAlignVertical: 'center',
   },
   listView: {
-         backgroundColor: '#F5FCFF'
+        backgroundColor: '#F5FCFF'
   },
 });
