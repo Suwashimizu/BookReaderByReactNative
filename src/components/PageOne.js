@@ -11,6 +11,7 @@ import {
 
 import { Actions } from 'react-native-router-flux';
 import ActionTypes from '../actions/ActionTypes';
+import BookEntry from '../store/BookEntry';
 
 export default class PageOne extends Component {
 
@@ -22,7 +23,7 @@ export default class PageOne extends Component {
     this.state = {
       //Dataの設定
       dataSource: ds.cloneWithRows([])
-      // dataSource: ds.cloneWithRows(TEST_ENTRY_DATA.items)
+      // dataSource: ds.cloneWithRows(TEST_ENTRY_DATA.entryData.items)
     };
   }
 
@@ -60,7 +61,7 @@ export default class PageOne extends Component {
           style={{height: 48}}
           placeholder="saerch book name."
           onChangeText={(text) => {
-              if(text!=null){
+              if(text != null){
                 fetchData(text,this);
               }
               this.setState({text});
@@ -69,7 +70,7 @@ export default class PageOne extends Component {
         />
 
         {(() => {
-              return this.state.text ? 
+              return this.state.dataSource ? 
               <ListView
                 dataSource={this.state.dataSource}
                 renderRow={this.renderEntry}/> : null;
@@ -77,46 +78,6 @@ export default class PageOne extends Component {
       </View>
     )
   }
-}
-
-const TEST_ENTRY_DATA= {
-
-  kind: "books#volumes",
-  totalItems: 4,
-  items: [
-  {
-   kind: "books#volume",
-   id: "n0WU-RX8-yoC",
-   etag: "i1EbgqzMFpU",
-   selfLink: "https://www.googleapis.com/books/v1/volumes/n0WU-RX8-yoC",
-   volumeInfo: {
-    title: "スレイヤーズ　水竜王の騎士(6)",
-    authors: [
-    "トミイ　大塚"
-    ],
-    imageLinks: {
-     smallThumbnail: "http://books.google.com/books/content?id=n0WU-RX8-yoC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
-     thumbnail: "http://books.google.com/books/content?id=n0WU-RX8-yoC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
-    }
-   }
-  },
-  {
-   kind: "books#volume",
-   id: "n0WU-RX8-yoC",
-   etag: "i1EbgqzMFpU",
-   selfLink: "https://www.googleapis.com/books/v1/volumes/n0WU-RX8-yoC",
-   volumeInfo: {
-    title: "スレイヤーズ　水竜王の騎士(1)",
-    authors: [
-    "トミイ　大塚"
-    ],
-    imageLinks: {
-     smallThumbnail: "http://books.google.com/books/content?id=n0WU-RX8-yoC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
-     thumbnail: "http://books.google.com/books/content?id=n0WU-RX8-yoC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
-    }
-   }
-  }
- ]
 }
 
 const GOOGLE_BOOK_ENTRY_URL = "https://www.googleapis.com/books/v1/volumes?q=intitle:%E3%82%B9%E3%83%AC%E3%82%A4%E3%83%A4%E3%83%BC%E3%82%BA+inauthor:%E5%A4%A7%E5%A1%9A";
@@ -173,6 +134,47 @@ const styles = StyleSheet.create({
         textAlignVertical: 'center',
   },
   listView: {
-    
+
   },
 });
+
+const _TEST_ENTRY_DATA = {
+    kind: "books#volumes",
+    totalItems: 4,
+    items: [
+    {
+     kind: "books#volume",
+     id: "n0WU-RX8-yoC",
+     etag: "i1EbgqzMFpU",
+     selfLink: "https://www.googleapis.com/books/v1/volumes/n0WU-RX8-yoC",
+     volumeInfo: {
+      title: "スレイヤーズ　水竜王の騎士(6)",
+      authors: [
+      "トミイ　大塚"
+      ],
+      imageLinks: {
+       smallThumbnail: "http://books.google.com/books/content?id=n0WU-RX8-yoC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+       thumbnail: "http://books.google.com/books/content?id=n0WU-RX8-yoC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+      }
+     }
+    },
+    {
+     kind: "books#volume",
+     id: "n0WU-RX8-yoC",
+     etag: "i1EbgqzMFpU",
+     selfLink: "https://www.googleapis.com/books/v1/volumes/n0WU-RX8-yoC",
+     volumeInfo: {
+      title: "スレイヤーズ　水竜王の騎士(1)",
+      authors: [
+      "トミイ　大塚"
+      ],
+      imageLinks: {
+       smallThumbnail: "http://books.google.com/books/content?id=n0WU-RX8-yoC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+       thumbnail: "http://books.google.com/books/content?id=n0WU-RX8-yoC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+      }
+     }
+    }
+   ]
+  };
+
+const TEST_ENTRY_DATA = new BookEntry(_TEST_ENTRY_DATA);
