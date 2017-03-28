@@ -34,7 +34,7 @@ export default class PageOne extends Component {
       <TouchableNativeFeedback onPress={() => (Actions.pageTwo({book:entry}))}>
         <View>
           <View style={styles.listItem}>
-
+            {/* 外に出せる */}
             { entry.volumeInfo.imageLinks ? 
               <Image
                   source={{uri: entry.volumeInfo.imageLinks.smallThumbnail}}
@@ -80,6 +80,7 @@ export default class PageOne extends Component {
 
 const GOOGLE_BOOK_ENTRY_URL = "https://www.googleapis.com/books/v1/volumes?q=intitle:%E3%82%B9%E3%83%AC%E3%82%A4%E3%83%A4%E3%83%BC%E3%82%BA+inauthor:%E5%A4%A7%E5%A1%9A";
 
+//Fetcherは外に出す
 const fetchData = (text,app) => {
     console.log(text);
 
