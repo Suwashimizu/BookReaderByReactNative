@@ -67,12 +67,16 @@ export default class PageOne extends Component {
           }
         />
 
-        {this.state.dataSource && this.state.text ?
+        { this.validEntry() ?
         <ListView
                 dataSource={this.state.dataSource}
                 renderRow={this.renderEntry}/> : null}
       </View>
     )
+  }
+
+  validEntry(){
+    return this.state.dataSource && this.state.text
   }
 }
 
