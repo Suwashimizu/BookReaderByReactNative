@@ -35,10 +35,7 @@ export default class PageOne extends Component {
         <View>
           <View style={styles.listItem}>
             {/* 外に出せる */}
-            { entry.volumeInfo.imageLinks ? 
-              <Image
-                  source={{uri: entry.volumeInfo.imageLinks.smallThumbnail}}
-                  style={styles.thumbnail}/> : <Text style={styles.imageNotFound}>ImageNothing</Text>}
+            <Thumbnail imageLinks = {entry.volumeInfo.imageLinks} />
 
             <View style={styles.rightContainer}>
               <Text style={styles.title} >
@@ -80,9 +77,25 @@ export default class PageOne extends Component {
   }
 }
 
+//simple component
 const Body = () => (
   <Text >Posts</Text>
 );
+
+const Thumbnail = ({imageLinks}) => {
+
+  if(imageLinks){
+    return(
+      <Image 
+        source={{uri: imageLinks.smallThumbnail}}
+        style={styles.thumbnail}/>
+    )
+  } else {
+    return(
+      <Text style={styles.imageNotFound}>NoImage</Text>
+    )
+  }
+}
 
 const GOOGLE_BOOK_ENTRY_URL = "https://www.googleapis.com/books/v1/volumes?q=intitle:%E3%82%B9%E3%83%AC%E3%82%A4%E3%83%A4%E3%83%BC%E3%82%BA+inauthor:%E5%A4%A7%E5%A1%9A";
 
