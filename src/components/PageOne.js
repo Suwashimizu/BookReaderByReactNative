@@ -67,16 +67,18 @@ export default class PageOne extends Component {
           }
         />
 
-        {(() => {
-              return this.state.dataSource ? 
-              <ListView
+        {this.state.dataSource && this.state.text ?
+        <ListView
                 dataSource={this.state.dataSource}
-                renderRow={this.renderEntry}/> : null;
-        })()}
+                renderRow={this.renderEntry}/> : null}
       </View>
     )
   }
 }
+
+const Body = () => (
+  <Text >Posts</Text>
+);
 
 const GOOGLE_BOOK_ENTRY_URL = "https://www.googleapis.com/books/v1/volumes?q=intitle:%E3%82%B9%E3%83%AC%E3%82%A4%E3%83%A4%E3%83%BC%E3%82%BA+inauthor:%E5%A4%A7%E5%A1%9A";
 
