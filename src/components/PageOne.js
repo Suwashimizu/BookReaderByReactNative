@@ -1,3 +1,5 @@
+'use strict';
+
 import React, { Component } from 'react';
 import { 
   View,
@@ -12,6 +14,15 @@ import {
 import { Actions } from 'react-native-router-flux';
 import ActionTypes from '../actions/ActionTypes';
 import BookEntry from '../store/BookEntry';
+
+var ToolbarAndroid = require('ToolbarAndroid');
+var nativeImageSource = require('nativeImageSource');
+
+const toolbarIcon = nativeImageSource({
+  android: 'app_logo',
+  width: 48,
+  height: 48
+})
 
 export default class PageOne extends Component {
 
@@ -49,7 +60,33 @@ export default class PageOne extends Component {
     );
   }
 
-  render() {
+  render(){
+
+    return (
+      <View>
+        <ToolbarAndroid
+          style={styles.toolbar}
+          navIcon={toolbarIcon}
+          title="BookSearch"
+        />
+        <View style={styles.container}>
+          <TextInput 
+            style={{height: 48}}
+            placeholder="saerch book name."
+            onChangeText={(text) => {
+                if(text != null){
+                  fetchData(text,this);
+                }
+                this.setState({text});
+              }
+            }
+          />
+        </View>
+      </View> 
+    )
+  }
+
+  render_() {
     return (
       <View style={styles.container}>
         <TextInput 
@@ -118,9 +155,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    marginTop:64,
     margin:16
   },
+
+  toolbar: {
+    backgroundColor: '#e9eaed',
+    height: 56,
+  },
+
   listItem: {
     flex: 1,
     flexDirection: 'row',
