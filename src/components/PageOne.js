@@ -14,6 +14,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 import ActionTypes from '../actions/ActionTypes';
 import BookEntry from '../store/BookEntry';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 var ToolbarAndroid = require('ToolbarAndroid');
 var nativeImageSource = require('nativeImageSource');
@@ -40,7 +41,7 @@ export default class PageOne extends Component {
 
   //ListItemのRender
   renderEntry(entry){
-
+  console.log('callRenderEntry');
     return (
       <TouchableNativeFeedback onPress={() => (Actions.pageTwo({book:entry}))}>
         <View>
@@ -60,51 +61,29 @@ export default class PageOne extends Component {
     );
   }
 
-  render(){
-
-    return (
-      <View>
-        <ToolbarAndroid
-          style={styles.toolbar}
-          navIcon={toolbarIcon}
-          title="BookSearch"
-        />
-        <View style={styles.container}>
-          <TextInput 
-            style={{height: 48}}
-            placeholder="saerch book name."
-            onChangeText={(text) => {
-                if(text != null){
-                  fetchData(text,this);
-                }
-                this.setState({text});
-              }
-            }
-          />
-        </View>
-      </View> 
-    )
-  }
-
-  render_() {
+  render() {
     return (
       <View style={styles.container}>
-        <TextInput 
-          style={{height: 48}}
-          placeholder="saerch book name."
-          onChangeText={(text) => {
-              if(text != null){
-                fetchData(text,this);
-              }
-              this.setState({text});
-            }
-          }
-        />
+        <ToolbarAndroid
+          style={styles.toolbar}>
+          <View style={{height:56,margin:16}}>
+            <View style={styles.inAppSearch}>
+              <Icon name="md-search" size={24} color="#222" style={{marginLeft:16}}/>
+              <SearchInputText 
+                onChangeTextListener={(text) => {
+                  if(text != null) fetchData(text,this);
+                  this.setState({text});
+                  }
+                }
+              />
+            </View>
+          </View>
+        </ToolbarAndroid>
 
         { this.validEntry() ?
         <ListView
-                dataSource={this.state.dataSource}
-                renderRow={this.renderEntry}/> : null}
+          dataSource={this.state.dataSource}
+          renderRow={this.renderEntry}/> : null}
       </View>
     )
   }
@@ -117,6 +96,17 @@ export default class PageOne extends Component {
 //simple component
 const Body = () => (
   <Text >Posts</Text>
+);
+
+const SearchInputText = ({onChangeTextListener}) => (
+  <TextInput 
+    style={{width:360,height: 48}}
+    placeholder="saerch book name."
+    onChangeText={(text) => {
+                    onChangeTextListener(text);
+                  }
+                }
+  />
 );
 
 const Thumbnail = ({imageLinks}) => {
@@ -155,12 +145,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    margin:16
+    margin:0
+  },
+
+  inAppSearch: {
+    height:56,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    marginTop:6,
+    marginRight:32,
+    margin:16,
   },
 
   toolbar: {
-    backgroundColor: '#e9eaed',
-    height: 56,
+    backgroundColor: '#00BCD4',
+    height: 60,
   },
 
   listItem: {
