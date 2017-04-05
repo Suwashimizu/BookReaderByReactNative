@@ -87,14 +87,14 @@ const Body = () => (
 // icon + editText + closeButton
 const TextInputBox = ({text,onChangeTextListener,closeButtonClickListener}) => (
   <View style={styles.inAppSearch}>
-    <Icon name="md-search" size={24} color="#222" style={{marginLeft:16}}/>
+    <Icon name="md-search" size={24} color="#222" style={{marginLeft:16,width:32,height:32}}/>
     <SearchInputText 
       _value = {text}
       onChangeTextListener={onChangeTextListener}
     />
-    <Icon name="md-close" size={24} color="#222" style={{marginRight:16}}
-      onPress={closeButtonClickListener}
-    />
+
+    {text? <Icon name="md-close" size={24} color="#222" style={{marginRight:16}}
+      onPress={closeButtonClickListener} /> : null }
   </View>
 );
 
