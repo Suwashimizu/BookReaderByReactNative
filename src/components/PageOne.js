@@ -16,15 +16,6 @@ import ActionTypes from '../actions/ActionTypes';
 import BookEntry from '../store/BookEntry';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-var ToolbarAndroid = require('ToolbarAndroid');
-var nativeImageSource = require('nativeImageSource');
-
-const toolbarIcon = nativeImageSource({
-  android: 'app_logo',
-  width: 48,
-  height: 48
-})
-
 export default class PageOne extends Component {
 
   constructor() {
@@ -46,7 +37,6 @@ export default class PageOne extends Component {
       <TouchableNativeFeedback onPress={() => (Actions.pageTwo({book:entry}))}>
         <View>
           <View style={styles.listItem}>
-            {/* 外に出せる */}
             <Thumbnail imageLinks = {entry.volumeInfo.imageLinks} />
 
             <View style={styles.rightContainer}>
@@ -79,7 +69,7 @@ export default class PageOne extends Component {
 
         { this.validEntry() ?
         <ListView
-          style={{marginLeft: 16,marginRight: 16,}}
+          style={styles.listView}
           dataSource={this.state.dataSource}
           renderRow={this.renderEntry}/> : null}
       </View>
@@ -98,7 +88,6 @@ const Body = () => (
 
 const SearchInputText = ({onChangeTextListener}) => (
   <TextInput
-    style={{height: 48}}
     underlineColorAndroid='transparent'
     placeholder="saerch book name."
     onChangeText={(text) => {
@@ -118,7 +107,7 @@ const Thumbnail = ({imageLinks}) => {
     )
   } else {
     return(
-      <Text style={styles.imageNotFound}>NoImage</Text>
+      <Text style={[styles.thumbnail,styles.noImage]}>NoImage</Text>
     )
   }
 }
@@ -146,8 +135,13 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
 
+  inputBackground: {
+    justifyContent: 'center',
+    backgroundColor: '#00BCD4',
+    height: 60,
+  },
+
   inAppSearch: {
-    height:48,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#fff',
@@ -156,44 +150,43 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
 
-  inputBackground: {
-    justifyContent: 'center',
-    backgroundColor: '#00BCD4',
-    height: 60,
-  },
-
   listItem: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  rightContainer: {
-        flex: 1
-  },
-  title: {
-      fontSize: 20,
-      marginBottom: 8
-  },
-  thumbnail: {
-        width: 100,
-        height: 100,
-        marginRight: 10
-  },
-  separator: {
-       height: 1,
-       backgroundColor: '#DDDDDD'
-  },
-  imageNotFound: {
-        width: 100,
-        height: 100,
-        marginRight: 10,
-        textAlign: 'center',
-        textAlignVertical: 'center',
-  },
-  listView: {
 
+  rightContainer: {
+    flex: 1
   },
+
+  title: {
+    fontSize: 20,
+    marginBottom: 8,
+    marginLeft: 10,
+  },
+
+  thumbnail: {
+    width: 100,
+    height: 100,
+  },
+
+  noImage: {
+    textAlign: 'center',
+    textAlignVertical: 'center',
+  },
+
+  separator: {
+    height: 1,
+    backgroundColor: '#DDDDDD'
+  },
+
+  listView: {
+    marginLeft: 16,
+    marginRight: 16,
+  },
+
 });
 
 const _TEST_ENTRY_DATA = {
