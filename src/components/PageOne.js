@@ -64,24 +64,22 @@ export default class PageOne extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ToolbarAndroid
-          style={styles.toolbar}>
-          <View style={{height:56,margin:16}}>
-            <View style={styles.inAppSearch}>
-              <Icon name="md-search" size={24} color="#222" style={{marginLeft:16}}/>
-              <SearchInputText 
-                onChangeTextListener={(text) => {
-                  if(text != null) fetchData(text,this);
-                  this.setState({text});
-                  }
+        <View style={styles.inputBackground}>
+          <View style={styles.inAppSearch}>
+            <Icon name="md-search" size={24} color="#222" style={{marginLeft:16}}/>
+            <SearchInputText 
+              onChangeTextListener={(text) => {
+                if(text != null) fetchData(text,this);
+                this.setState({text});
                 }
-              />
-            </View>
+              }
+            />
           </View>
-        </ToolbarAndroid>
+        </View>
 
         { this.validEntry() ?
         <ListView
+          style={{marginLeft: 16,marginRight: 16,}}
           dataSource={this.state.dataSource}
           renderRow={this.renderEntry}/> : null}
       </View>
@@ -99,8 +97,9 @@ const Body = () => (
 );
 
 const SearchInputText = ({onChangeTextListener}) => (
-  <TextInput 
-    style={{width:360,height: 48}}
+  <TextInput
+    style={{height: 48}}
+    underlineColorAndroid='transparent'
     placeholder="saerch book name."
     onChangeText={(text) => {
                     onChangeTextListener(text);
@@ -145,20 +144,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    margin:0
   },
 
   inAppSearch: {
-    height:56,
+    height:48,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#fff',
-    marginTop:6,
-    marginRight:32,
-    margin:16,
+    marginRight:16,
+    marginLeft:16,
+    borderRadius: 4,
   },
 
-  toolbar: {
+  inputBackground: {
+    justifyContent: 'center',
     backgroundColor: '#00BCD4',
     height: 60,
   },
