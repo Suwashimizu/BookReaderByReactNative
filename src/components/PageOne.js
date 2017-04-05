@@ -55,23 +55,22 @@ export default class PageOne extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.inputBackground}>
-          <View style={styles.inAppSearch}>
-            <Icon name="md-search" size={24} color="#222" style={{marginLeft:16}}/>
-            <SearchInputText 
-              onChangeTextListener={(text) => {
+          <TextInputBox
+            text = {this.state.text}
+            onChangeTextListener={(text) => {
                 if(text != null) fetchData(text,this);
+
                 this.setState({text});
                 }
               }
-            />
-          </View>
+            closeButtonClickListener = {() => {this.setState({text:""});}}/>
         </View>
 
         { this.validEntry() ?
-        <ListView
-          style={styles.listView}
-          dataSource={this.state.dataSource}
-          renderRow={this.renderEntry}/> : null}
+          <ListView
+            style={styles.listView}
+            dataSource={this.state.dataSource}
+            renderRow={this.renderEntry}/> : null}
       </View>
     )
   }
@@ -85,9 +84,25 @@ export default class PageOne extends Component {
 const Body = () => (
   <Text >Posts</Text>
 );
+// icon + editText + closeButton
+const TextInputBox = ({text,onChangeTextListener,closeButtonClickListener}) => (
+  <View style={styles.inAppSearch}>
+    <Icon name="md-search" size={24} color="#222" style={{marginLeft:16}}/>
+    <SearchInputText 
+      _value = {text}
+      onChangeTextListener={onChangeTextListener}
+    />
+    <Icon name="md-close" size={24} color="#222" style={{marginRight:16}}
+      onPress={closeButtonClickListener}
+    />
+  </View>
+);
 
-const SearchInputText = ({onChangeTextListener}) => (
+const SearchInputText = ({_value,onChangeTextListener}) => (
   <TextInput
+    style={{flex:1}}
+    value={_value}
+    clearButtonMode="always"
     underlineColorAndroid='transparent'
     placeholder="saerch book name."
     onChangeText={(text) => {
