@@ -15,6 +15,7 @@ import { Actions } from 'react-native-router-flux';
 import ActionTypes from '../../actions/ActionTypes';
 import BookEntry from '../../store/BookEntry';
 import Icon from 'react-native-vector-icons/Ionicons';
+import TextInputLayout from '../components/TextInputLayout';
 
 export default class PageOne extends Component {
 
@@ -55,15 +56,14 @@ export default class PageOne extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.inputBackground}>
-          <TextInputBox
-            text = {this.state.text}
-            onChangeTextListener={(text) => {
-                if(text != null) fetchData(text,this);
-
-                this.setState({text});
-                }
-              }
-            closeButtonClickListener = {() => {this.setState({text:""});}}/>
+          <TextInputLayout 
+            onChangeText = {(text) => {
+              if(text != null) fetchData(text,this);
+              
+              this.setState({text});
+            }
+          }
+          />
         </View>
 
         { this.validEntry() ?
@@ -83,35 +83,6 @@ export default class PageOne extends Component {
 //simple component
 const Body = () => (
   <Text >Posts</Text>
-);
-// icon + editText + closeButton
-const TextInputBox = ({text,onChangeTextListener,closeButtonClickListener}) => (
-  <View style={styles.inAppSearch}>
-    <Icon name="md-search" size={24} color="#222" style={{marginLeft:16,width:32,height:32}}/>
-    <SearchInputText 
-      _value = {text}
-      onChangeTextListener={onChangeTextListener}
-    />
-
-    {text? <Icon name="md-close" size={24} color="#222" style={{marginRight:16}}
-      onPress={closeButtonClickListener} /> : null }
-  </View>
-);
-
-const SearchInputText = ({_value,onChangeTextListener}) => (
-  <TextInput
-    style={{
-      flex:1,
-    }}
-    value={_value}
-    clearButtonMode="always"
-    underlineColorAndroid='transparent'
-    placeholder="saerch book name."
-    onChangeText={(text) => {
-                    onChangeTextListener(text);
-                  }
-                }
-  />
 );
 
 const Thumbnail = ({imageLinks}) => {
@@ -156,15 +127,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#00BCD4',
     height: 60,
-  },
-
-  inAppSearch: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    marginRight:16,
-    marginLeft:16,
-    borderRadius: 4,
   },
 
   listItem: {
