@@ -12,8 +12,8 @@ import {
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
-import ActionTypes from '../actions/ActionTypes';
-import BookEntry from '../store/BookEntry';
+import ActionTypes from '../../actions/ActionTypes';
+import BookEntry from '../../store/BookEntry';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class PageOne extends Component {
@@ -100,7 +100,9 @@ const TextInputBox = ({text,onChangeTextListener,closeButtonClickListener}) => (
 
 const SearchInputText = ({_value,onChangeTextListener}) => (
   <TextInput
-    style={{flex:1}}
+    style={{
+      flex:1,
+    }}
     value={_value}
     clearButtonMode="always"
     underlineColorAndroid='transparent'
