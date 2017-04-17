@@ -45,6 +45,9 @@ export default class PageOne extends Component {
               <Text style={styles.title} >
                 {entry.volumeInfo.title}
               </Text>
+              <Text style={styles.author} >
+                {entry.volumeInfo.authors}
+              </Text>
             </View>
           </View>
           <View style={styles.separator} />
@@ -135,7 +138,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
   },
 
   rightContainer: {
@@ -143,8 +145,15 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 20,
-    marginBottom: 8,
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 8,
+    marginLeft: 10,
+  },
+
+  author: {
+    fontSize: 12,
+    marginTop: 8,
     marginLeft: 10,
   },
 
