@@ -28,6 +28,7 @@ export default class extends Component {
             marginLeft:8,
           }}
           value={this.state.text}
+          underlineColorAndroid='transparent'
           placeholder="saerch book name."
           onChangeText={(text) => {
                     this.setState({text});
