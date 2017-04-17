@@ -12,8 +12,8 @@ import {
 //Routing
 import {Scene, Router,Modal,Reducer} from 'react-native-router-flux';
 
-import PageOne from '../components/PageOne';
-import PageTwo from '../components/PageTwo';
+import PageOne from './containers/PageOne';
+import PageTwo from './containers/PageTwo';
 import ActionTypes from '../actions/ActionTypes';
 
 const reducerCreate = params=>{
