@@ -3,6 +3,7 @@ import {
   View,
   Text,
   Image,
+  ScrollView,
   StyleSheet,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
@@ -19,13 +20,7 @@ export default class PageTwo extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.listItem}>
-          <Image
-            source={{
-              uri: this.props.book.volumeInfo.imageLinks ?
-                this.props.book.volumeInfo.imageLinks.smallThumbnail : ""
-            }}
-            style={styles.thumbnail}
-            resizeMode='cover' />
+          <Thumbnail imageLinks={this.props.book.volumeInfo.imageLinks} />
           <View style={styles.rightContainer}>
             <Text style={styles.title}>{this.props.book.volumeInfo.title}</Text>
             <Author authors={this.props.book.volumeInfo.authors} />
@@ -33,6 +28,22 @@ export default class PageTwo extends Component {
           </View>
         </View>
       </View>
+    )
+  }
+}
+
+const Thumbnail = ({ imageLinks }) => {
+
+  if (imageLinks) {
+    return (
+      <Image
+        source={{ uri: imageLinks.smallThumbnail }}
+        style={styles.thumbnail}
+        resizeMode='cover' />
+    )
+  } else {
+    return (
+      <Text style={[styles.thumbnail, styles.noImage]}>NoImage</Text>
     )
   }
 }
@@ -60,6 +71,12 @@ const styles = StyleSheet.create({
     width: 96,
     height: 152,
   },
+
+  noImage: {
+    textAlign: 'center',
+    textAlignVertical: 'center',
+  },
+
   rightContainer: {
     flex: 1,
     marginLeft: 32,
