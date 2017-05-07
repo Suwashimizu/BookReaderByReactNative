@@ -58,7 +58,10 @@ const Author = ({ authors }) => (
 const Description = ({ description }) => (
   <View style={{ flexDirection: 'row', marginTop: 16 }}>
     <Icon name="md-information-circle" size={24} />
-    <Text style={styles.description}>{description ? description : "詳細情報はありません。"}</Text>
+
+    <ScrollView>
+      <Text style={styles.description}>{description ? description : "詳細情報はありません。"}</Text>
+    </ScrollView>
   </View>
 );
 
