@@ -193,6 +193,9 @@ const _TEST_ENTRY_DATA = {
         authors: [
           "トミイ　大塚"
         ],
+        publisher: "KADOKAWA / 富士見書房",
+        description: "空竜王バールウィンから神力を得たリナは危機一髪のガウリイたちを救出。が、ライオスに宿る制御不能の水竜王の力まで覚醒しはじめる。そんな折、暗躍を続けていた海神官ヒュレイカーが現れて...。",
+
         imageLinks: {
           smallThumbnail: "http://books.google.com/books/content?id=n0WU-RX8-yoC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
           thumbnail: "http://books.google.com/books/content?id=n0WU-RX8-yoC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
