@@ -11,12 +11,14 @@ import {
   TouchableNativeFeedback,
 } from 'react-native';
 
+import { ActionConst } from 'react-native-router-flux';
+
 import { Actions } from 'react-native-router-flux';
-import ActionTypes from '../../actions/ActionTypes';
 import BookEntry from '../../store/BookEntry';
 import Icon from 'react-native-vector-icons/Ionicons';
 import TextInputLayout from '../components/TextInputLayout';
 import SeachResultEmptyItem from '../components/SearchResultEmptyItem';
+import InfiniteScrollView from 'react-native-infinite-scroll-view';
 
 export default class PageOne extends Component {
 
@@ -56,6 +58,16 @@ export default class PageOne extends Component {
     );
   }
 
+  _loadMoreContentAsync = async () => {
+    // Fetch more data here.
+    // After fetching data, you should update your ListView data source
+    // manually.
+    // This function does not have a return value.
+
+    console.log("loadMore");
+    fetchData(text, this);
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -72,9 +84,14 @@ export default class PageOne extends Component {
 
         {this.validEntry() ?
           <ListView
+            renderScrollComponent={(props) => <InfiniteScrollView {...props} />}
             style={styles.listView}
             dataSource={this.state.dataSource}
             renderRow={this.renderEntry}
+            canLoadMore={true}
+            isLoadingMore={false}
+            distanceToLoadMore={10}
+            onLoadMoreAsync={this._loadMoreContentAsync}
           /> : <SeachResultEmptyItem />}
       </View>
     )
@@ -107,11 +124,12 @@ const Thumbnail = ({ imageLinks }) => {
 
 const GOOGLE_BOOK_ENTRY_URL = "https://www.googleapis.com/books/v1/volumes?q=intitle:%E3%82%B9%E3%83%AC%E3%82%A4%E3%83%A4%E3%83%BC%E3%82%BA+inauthor:%E5%A4%A7%E5%A1%9A";
 
+const maxResults = 10;
 //Fetcherは外に出す
-const fetchData = (text, app) => {
+const fetchData = (text, startIndex, app) => {
   console.log(text);
 
-  fetch("https://www.googleapis.com/books/v1/volumes?q=intitle:" + text)
+  fetch("https://www.googleapis.com/books/v1/volumes?q=intitle:" + text + "&maxResults=" + maxResults + "&startIndex=" + startIndex * 10)
     .then((response) => response.json())
     .then((responseData) => {
       if (responseData.items) {
