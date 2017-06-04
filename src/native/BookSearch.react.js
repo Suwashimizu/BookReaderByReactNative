@@ -8,6 +8,7 @@ import React, { Component } from 'react';
 import { createStore, applyMiddleware, compose } from 'redux';     // redux。storeの作成やmiddlewareの提供
 import { Provider, connect } from 'react-redux';　　　　　　　　　    // reduxとreact-nativeを関連づけてくれる
 import thunkMiddleware from 'redux-thunk';                         // reduxの非同期処理(middlewareの例)
+import { createLogger } from 'redux-logger';
 
 import reducers from '../reducers';
 
@@ -21,10 +22,12 @@ import { ActionConst, Scene, Router, Modal, Reducer } from 'react-native-router-
 import ActionType from '../actions/Routes';
 import PageOne from './containers/PageOne';
 import PageTwo from './containers/PageTwo';
+import TestPage from './containers/PageTest';
 
 const RouterWithRedux = connect()(Router);
 
 // create store...
+const loggerMiddleware = createLogger();
 const middleware = [thunkMiddleware];
 const store = compose(
   applyMiddleware(...middleware)
@@ -44,6 +47,24 @@ export default class extends Component {
     return (
       <Provider store={store}>
         <RouterWithRedux>
+          <Scene key="root">
+            <Scene key="modal" component={Modal}>
+              <Scene key="top" initial={true} component={TestPage} title="Top" />
+            </Scene>
+          </Scene>
+        </RouterWithRedux>
+      </Provider>
+    )
+  }
+}
+
+/*
+export default class extends Component {
+
+  render() {
+    return (
+      <Provider store={store}>
+        <RouterWithRedux>
           <Scene key="modal" component={Modal}>
             <Scene key="top" initial={true} component={PageOne} title="Top" />
           </Scene>
@@ -53,3 +74,4 @@ export default class extends Component {
     )
   }
 }
+*/

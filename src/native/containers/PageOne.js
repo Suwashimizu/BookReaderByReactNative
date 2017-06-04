@@ -11,9 +11,8 @@ import {
   TouchableNativeFeedback,
 } from 'react-native';
 
-import { ActionConst } from 'react-native-router-flux';
-
-import { Actions } from 'react-native-router-flux';
+import { ActionConst, Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux'
 import BookEntry from '../../store/BookEntry';
 import Icon from 'react-native-vector-icons/Ionicons';
 import TextInputLayout from '../components/TextInputLayout';

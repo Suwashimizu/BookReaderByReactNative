@@ -7,7 +7,7 @@ import {
 
 // 初期化
 const initialState = {
-  text: '',
+  text: 'success connect component with redux!!',
 };
 
 // 入り口は一つにしてswitchで分ける。
@@ -16,9 +16,11 @@ const initialState = {
 // reducer内ではstateを更新することはせず、新しいstate(assignして)を返す。
 export default function searchReducer(state = initialState, action = {}) {
   // typeでswitchする
+  console.log(action);
+
   switch (action.type) {
     case BOOK_SEARCH:
-      // 空のObnectにマージする
+      // 空のObjectにマージする
       return Object.assign({}, state, {
         text: action.text,
       })
