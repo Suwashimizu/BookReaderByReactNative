@@ -23,12 +23,13 @@ import ActionType from '../actions/Routes';
 import PageOne from './containers/PageOne';
 import PageTwo from './containers/PageTwo';
 import TestPage from './containers/PageTest';
+import TopPage from './containers/TopPage';
 
 const RouterWithRedux = connect()(Router);
 
 // create store...
 const loggerMiddleware = createLogger();
-const middleware = [thunkMiddleware];
+const middleware = [thunkMiddleware, loggerMiddleware];
 const store = compose(
   applyMiddleware(...middleware)
 )(createStore)(reducers);
@@ -49,7 +50,7 @@ export default class extends Component {
         <RouterWithRedux>
           <Scene key="root">
             <Scene key="modal" component={Modal}>
-              <Scene key="top" initial={true} component={TestPage} title="Top" />
+              <Scene key="top" initial={true} component={TopPage} title="Top" />
             </Scene>
           </Scene>
         </RouterWithRedux>

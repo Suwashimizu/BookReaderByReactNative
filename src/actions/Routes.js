@@ -25,6 +25,9 @@ let startIndex = 0;
 //受け取る
 export const RECEIVE_BOOKS = 'RECEIVE_BOOKS'
 export function receiveBooks(bookData) {
+
+  console.log(bookData)
+
   return {
     type: RECEIVE_BOOKS,
     books: bookData,
@@ -39,13 +42,39 @@ export function searchError(errorMessage, error) {
   }
 }
 
+export function searchBookData2(bookTitle) {
+  return (dispatch) => {
+
+    fetchData(bookTitle).then(
+      sauce => dispatch(receiveBooks(sauce)))
+  }
+}
+
+//@see https://medium.com/@stowball/a-dummys-guide-to-redux-and-thunk-in-react-d8904a7005d3
 export function searchBookData(bookTitle) {
+
+  //itemsIsLoading(true)を返す
+
   //APIにアクセス
   //結果をsuccess,errorでActionに振り分ける
-  return fetchData(bookTitle).then(
-    sauce => dispatch(receiveBooks(sauce)),
-    error => dispatch(apologize('検索出来ませんでした', error))
-  )
+  return (dispatch) => {
+    fetchData(bookTitle)
+      .then((response) => {
+        if (!response.ok) {
+          throw Error(response.statusText)
+        }
+
+        return response
+      })
+      .then((response) => response.json())
+      .then((items) => dispatch(receiveBooks(items)))
+    // .catch(() => dispatch(itemsHasErrored(true)))
+
+    // return fetchData(bookTitle).then(
+    //   sauce => dispatch(receiveBooks(sauce)),
+    //   error => dispatch(apologize('検索出来ませんでした', error))
+    // )
+  }
 }
 
 function fetch_data1(book_title) {
