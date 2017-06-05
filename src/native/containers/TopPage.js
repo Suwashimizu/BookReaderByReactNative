@@ -48,13 +48,6 @@ class TopPage extends Component {
     // this.setState({ text });
   }
 
-  _renderItem(entry) {
-    console.log(entry)
-    return (
-      <BookRow entry={entry} />
-    );
-  }
-
   render() {
     const { text, books } = this.props
 
@@ -65,26 +58,13 @@ class TopPage extends Component {
             onChangeText={this._onChangeText.bind(this)} />
         </View>
         {books ? <FlatList
-          data={[{ key: 'a' }, { key: 'b' }]}
-          renderItem={({ item }) => <Text>{item.key}</Text>}
+          data={books.items}
+          renderItem={({ item }) => <BookRow bookData={item} />}
         /> : <SeachResultEmptyItem />}
       </View>
     );
   }
 }
-
-/*
-{books ? <ListView
-          renderScrollComponent={(props) => <InfiniteScrollView {...props} />}
-          style={styles.listView}
-          dataSource={this.state.dataSource}
-          renderRow={this.renderItem}
-          canLoadMore={true}
-          isLoadingMore={false}
-          distanceToLoadMore={10}
-          onLoadMoreAsync={this._loadMoreContentAsync}
-        /> : <SeachResultEmptyItem />}
-*/
 
 const styles = StyleSheet.create({
   container: {
@@ -103,44 +83,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
   },
-
-  rightContainer: {
-    flex: 1
-  },
-
-  title: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginTop: 8,
-    marginLeft: 10,
-  },
-
-  author: {
-    fontSize: 12,
-    marginTop: 8,
-    marginLeft: 10,
-  },
-
-  thumbnail: {
-    width: 100,
-    height: 100,
-  },
-
-  noImage: {
-    textAlign: 'center',
-    textAlignVertical: 'center',
-  },
-
-  separator: {
-    height: 1,
-    backgroundColor: '#DDDDDD'
-  },
-
-  listView: {
-    marginLeft: 16,
-    marginRight: 16,
-  },
-
 });
 
 // ① Stateとの受け皿となるObjectを定義
